@@ -210,7 +210,7 @@ async function excluirCliente(id) {
 async function mudarStatus(id) {
     console.log("Tentando modificar status...");
     try{
-        const respostaGet = await fetch(`http://10.142.227.101:8000/clientes/id/${id}`, )
+        const respostaGet = await fetch(`https://academia-api-xi.vercel.app/clientes/id/${id}`, )
         const cliente = await respostaGet.json()
          // Alternar status: se estiver 'ativo', muda pra 'inativo', e vice-versa
          const novoStatus = cliente.status === 'ativo' ? 'inativo' : 'ativo';
