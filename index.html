@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WR FIR Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            700: '#1a237e',
+                            800: '#0d1b3e',
+                            900: '#070d1f',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-navy-900 text-white">
+    <!-- Navbar -->
+    <nav class="bg-[#1a237e] p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-bold">WR FIT Admin</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Painel Administrativo</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">Gerenciamento de Clientes</h1>
+            <p class="text-gray-400">Gerencie os membros da academia de forma eficiente</p>
+        </div>
+
+        <!-- Add Client Form -->
+        <div id="cadastro-form" class="bg-[#1a237e] rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-yellow-400 mr-2">
+                    <path d="M12 5v14"/>
+                    <path d="M5 12h14"/>
+                </svg>
+                <h2 class="text-xl font-semibold">Cadastrar Novo Cliente</h2>
+            </div>
+            <form class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="cadastro-name" class="block text-sm font-medium mb-1">Nome Completo</label>
+                        <input type="text" id="cadastro-name" class="w-full px-4 py-2 rounded bg-navy-800 border border-navy-700 focus:outline-none focus:border-yellow-400" placeholder="Digite o nome do cliente">
+                    </div>
+                    <div>
+                        <label for="cadastro-cpf" class="block text-sm font-medium mb-1">CPF</label>
+                        <input type="text" id="cadastro-cpf" class="w-full px-4 py-2 rounded bg-navy-800 border border-navy-700 focus:outline-none focus:border-yellow-400" placeholder="Digite o CPF">
+                    </div>
+                </div>
+                <button type="submit" class="bg-yellow-400 text-navy-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors">
+                    Cadastrar Cliente
+                </button>
+            </form>
+        </div>
+
+        <!-- Update Form (Hidden by default) -->
+        <div id="update-form" class="bg-[#1a237e] rounded-lg shadow-lg p-6 mb-8 hidden">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-yellow-400 mr-2">
+                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                    <path d="m15 5 4 4"/>
+                </svg>
+                <h2 class="text-xl font-semibold">Editar Cliente</h2>
+            </div>
+            <form class="space-y-4">
+                <input type="hidden" id="update-id">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="update-name" class="block text-sm font-medium mb-1">Nome Completo</label>
+                        <input type="text" id="update-name" class="w-full px-4 py-2 rounded bg-navy-800 border border-navy-700 focus:outline-none focus:border-yellow-400">
+                    </div>
+                    <div>
+                        <label for="update-cpf" class="block text-sm font-medium mb-1">CPF</label>
+                        <input type="text" id="update-cpf" class="w-full px-4 py-2 rounded bg-navy-800 border border-navy-700 focus:outline-none focus:border-yellow-400">
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <button type="submit" class="bg-yellow-400 text-navy-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors">
+                        Salvar Alterações
+                    </button>
+                    <button type="button" id="cancel-update" class="bg-gray-600 text-white px-6 py-2 rounded font-semibold hover:bg-gray-700 transition-colors">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Client List -->
+        <div class="bg-[#1a237e] rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-yellow-400 mr-2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <h2 class="text-xl font-semibold">Clientes Cadastrados</h2>
+                </div>
+                <div class="flex space-x-2">
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="buscaCliente"
+                            class="w-64 px-4 py-2 pr-10 rounded bg-navy-800 border border-navy-700 focus:outline-none focus:border-yellow-400"
+                            placeholder="Buscar por nome ou cpf..."
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-gray-400 absolute right-3 top-2.5">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.3-4.3"/>
+                        </svg>
+                    </div>
+                    <button  class="bg-yellow-400 text-navy-900 px-4 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors flex items-center" onclick="pesquisaClientes()">
+                        <span>Pesquisar</span>
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-navy-700">
+                            <th class="text-left py-3 px-4">Nome</th>
+                            <th class="text-left py-3 px-4">CPF</th>
+                            <th class="text-left py-3 px-4">Status</th>
+                            <th class="text-right py-3 px-4">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="item-list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <!-- Container para as notificações Toast  (pop-ups)-->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-3 w-full max-w-xs sm:max-w-sm">
+    <!-- Toasts serão adicionados aqui via JS -->
+    <script>
+        lucide.createIcons();
+      </script>
+</body>
+</html>
