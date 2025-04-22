@@ -2,8 +2,8 @@
 
 // URL's da nossa API (Backend)
 
-const ENDPOINT_CLIENTES_CPF= 'http://10.142.227.101:8000/clientes/';
-const ENDPOINT_LISTA_CLIENTES = "http://10.142.227.101:8000/clientes"
+const ENDPOINT_CLIENTES_CPF= 'https://academia-api-xi.vercel.app/clientes/';
+const ENDPOINT_LISTA_CLIENTES = "https://academia-api-xi.vercel.app/clientes"
 let todosOsClientes = []
 
 // Ligando com os elementos HTML
@@ -374,7 +374,6 @@ function esconderFormularioAtualizacao() {
 // ============================================================
 // FUNÇÕES DE FEEDBACK (TOASTS)
 // ============================================================
-
 function showToast(message, type = 'success', duration = 3000) {
     const container = document.getElementById('toast-container');
     if (!container) {
@@ -448,7 +447,6 @@ function removeToast(toastElement) {
         }
     }, 300); // Duração da animação de saída (igual à da entrada)
 }
-
 //=====================================================================
 //EVENT LISTENERS GLOBAIS(Campanhias principais da página)
 
