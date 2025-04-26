@@ -5,7 +5,7 @@
 **Descrição:**
 
 Este projeto disponibiliza uma interface web administrativa para o gerenciamento de clientes em um sistema de controle de acesso para academias. Desenvolvida com HTML, Tailwind CSS e JavaScript, a interface permite adicionar, visualizar, editar e excluir informações de clientes, interagindo com uma API RESTful externa (Python com Flask e Firebase).  Oferece funcionalidades CRUD completas, pesquisa eficiente por nome e CPF, e uma apresentação clara em tabelas para uma administração otimizada.
-
+Link deste projeto na vercel: https://ad-mfrontacademia-main.vercel.app
 ## Índice
 
 * [Funcionalidades](#funcionalidades)
